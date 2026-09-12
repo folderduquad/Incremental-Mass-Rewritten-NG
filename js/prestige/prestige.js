@@ -14,7 +14,8 @@ const REINCARNATION = {
         return x.max(1)
     },
     reached(i) {
-        return player.reinc.count.gte(this.mils[i][0])
+        return player.reinc.points.gte(this.mils[i][0]),
+        player.reinc.count.gte(1)
     },
     getInfSpeedMult() {
         let x = E(1)
@@ -38,6 +39,7 @@ const REINCARNATION = {
         tmp.reinc = tmp.reinc || {}
         tmp.reinc.count = player.reinc.count
         tmp.reinc.total = player.reinc.total
+        tmp.reinc.points = player.reinc.points
         tmp.reinc.reached = player.reinc.reached
         tmp.reinc.mil_reached = []
         for (let i = 0; i < this.mils.length; i++) tmp.reinc.mil_reached[i] = this.reached(i)
@@ -67,6 +69,8 @@ const REINCARNATION = {
     doReset() {
         if (!player.reinc) player.reinc = getReincSave()
 
+        let g = this.gain()
+        player.reinc.points = player.reinc.points.add(g)
         player.reinc.count = player.reinc.count.add(1)
         player.reinc.total = player.reinc.total.add(1)
         player.reinc.reached = true
@@ -107,5 +111,6 @@ function getReincSave() {
         count: E(0),
         total: E(0),
         reached: false,
+        points: E(0),
     }
 }

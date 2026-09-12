@@ -132,7 +132,7 @@ const RESOURCES_DIS = {
         icon: "prestige_green",
         class: "cyan",
 
-        desc: (gs)=>player.reinc.count.format(0)+"<br>(+"+REINCARNATION.gain().format(0)+")",
+        desc: (gs)=>player.reinc.points.format(0)+"<br>(+"+REINCARNATION.gain().format(0)+")",
 
         resetBtn() { REINCARNATION.go() },
     },

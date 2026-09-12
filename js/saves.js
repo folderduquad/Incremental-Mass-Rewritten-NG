@@ -188,6 +188,7 @@ function getPlayerData() {
             count: E(0),
             total: E(0),
             reached: false,
+            points: E(0),
         },
         auto_mainUpg: {},
         mainUpg: {},
