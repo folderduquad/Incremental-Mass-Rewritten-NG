@@ -184,6 +184,11 @@ function getPlayerData() {
         ascensions: new Array(ASCENSIONS.names.length).fill(E(0)),
         gal_prestige: E(0),
         gp_resources: new Array(GAL_PRESTIGE.res_length).fill(E(0)),
+        reinc: {
+            count: E(0),
+            total: E(0),
+            reached: false,
+        },
         auto_mainUpg: {},
         mainUpg: {},
         ranks_reward: 0,
