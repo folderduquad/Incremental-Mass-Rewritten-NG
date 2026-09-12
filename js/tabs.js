@@ -22,8 +22,8 @@ const TABS = {
         { id: "Quantum", icon: "material-symbols:grid-4x4-rounded", color: "lightgreen", unl() { return quUnl() }, style: "qu" },
         { id: "Darkness", icon: "ic:baseline-remove-red-eye", color: "grey", unl() { return player.dark.unl }, style: "dark" },
         { id: "Infinity", icon: "game-icons:infinity", color: "orange", unl() { return tmp.inf_unl }, style: "inf" },
-        { id: "Options", icon: "mdi:gear" },
-        { id: "Reincarnation", unl() { return hasInfUpgrade(16) }, icon: "mdi:restart-alt", color: "cyan", style: "reinc" },
+        { id: "Reincarnation", unl() { return hasInfUpgrade(16) }, icon: "mdi:restart-alt", color: "green", style: "reinc" },
+        { id: "Options", icon: "mdi:gear" }, 
     ],
     2: {
         0: [

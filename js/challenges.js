@@ -647,16 +647,16 @@ const CHALS = {
         unl() { return hasElement(290) },
         title: "The Reality III",
         desc: "You are trapped in C1-19 and dark run with 1500 all glyphs. Theorems in the Core don't work. This challenge resets main upgrades.",
-        reward: `???.<br><span class="yellow">On first completion, unlock ???.</span>`,
-        max: E(100),
-        inc: E(10),
-        pow: E(1.25),
-        start: EINF,
+        reward: `After completing this challenge, the gain of reincarnation points is doubled.<br><span class="yellow">In this challenge, every Reincarnation milestone multiplier is raised to the 10th power.</span>`,
+        max: E(1),
+        inc: E('1e10'),
+        pow: E(3.5),
+        start: E('ee100'),
         effect(x) {
             let ret = E(1)
             return ret
         },
-        effDesc(x) { return "???" },
+        effDesc(x) { return "x"+format(x,0) },
     },
     cols: 20,
 }
