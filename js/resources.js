@@ -128,7 +128,7 @@ const RESOURCES_DIS = {
         resetBtn() { INF.goInf() },
     },
     reinc: {
-        unl: ()=>player.reinc.reached || REINCARNATION.can(),
+        unl: ()=>true,
         icon: "prestige_green",
         class: "cyan",
 
