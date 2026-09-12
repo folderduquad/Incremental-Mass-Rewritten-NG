@@ -79,6 +79,7 @@ const TABS = {
             { id: "Core Effect" },
             { id: "Infinity Upgrades", style: "inf" },
             { id: "Corrupted Star", unl() { return tmp.CS_unl } },
+            { id: "Reincarnation", unl() { return hasInfUpgrade(16) }, style: "inf" },
         ],
         9: [
             { id: "Options" },

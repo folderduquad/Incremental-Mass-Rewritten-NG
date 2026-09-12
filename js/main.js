@@ -24,12 +24,12 @@ const FORMS = {
 
         if (hasUpgrade('br',21)) x = x.pow(upgEffect(4,21))
 
-        return x
+        return x.mul(REINCARNATION.getInfSpeedMult())
     },
     getPreQUGlobalSpeed() {
         let x = E(1), inf = tmp.preInfGlobalSpeed
 
-        if (tmp.c16active) return inf.div(100)
+        if (tmp.c16active) return inf.div(100).mul(REINCARNATION.getQUSpeedMult())
 
         if (tmp.qu.mil_reached[1]) x = x.mul(10)
         if (quUnl()) x = x.mul(tmp.qu.bpEff)
@@ -42,10 +42,11 @@ const FORMS = {
 
         if (QCs.active()) x = x.div(tmp.qu.qc_eff[1])
 
-        return x.mul(inf)
+        return x.mul(inf).mul(REINCARNATION.getQUSpeedMult())
     },
     massGain() {
         let x = E(1)
+        x = x.mul(REINCARNATION.getMassGainMult())
         x = x.add(BUILDINGS.eff('mass_1'))
         if (player.ranks.rank.gte(6)) x = x.mul(RANKS.effect.rank[6]())
         if (player.ranks.rank.gte(13)) x = x.mul(3)

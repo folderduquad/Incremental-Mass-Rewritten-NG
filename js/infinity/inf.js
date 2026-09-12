@@ -543,7 +543,7 @@ function infButton() {
 }
 
 function calcInf(dt) {
-    if (!tmp.brokenInf && tmp.inf_reached && tmp.inf_time == 0) {
+    if (!tmp.brokenInf && tmp.inf_reached && tmp.inf_time == 0 && player.inf.theorem.eq(0)) {
         tmp.inf_time += 1
         document.body.style.animation = "inf_reset_1 10s 1"
 
@@ -594,6 +594,7 @@ function calcInf(dt) {
 function setupInfHTML() {
     setupCoreHTML()
     setupInfUpgradesHTML()
+    REINCARNATION.setupHTML()
 }
 
 function updateInfHTML() {
@@ -661,6 +662,7 @@ function updateInfHTML() {
             }
         }
         else if (tmp.stab[8] == 3) updateCSHTML()
+        else if (tmp.stab[8] == 4) REINCARNATION.updateHTML()
     }
 }
 
