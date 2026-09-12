@@ -1,11 +1,11 @@
 const REINCARNATION = {
-    req: E('1e1800'),
+    req: E('1e308'),
     can() {
-        return player.mass.gte(this.req)
+        return player.inf.points.gte(this.req)
     },
     gain() {
         if (!this.can()) return E(0)
-        let x = player.inf.points.max(1).add(10).log10().div(308).add(1).floor()
+        let x = player.inf.points.max(1).log10().div(308).add(1).floor()
         return x.max(1)
     },
     doReset() {
