@@ -3,7 +3,7 @@ const REINCARNATION = {
     mils: [
         [E(1), `Reach <b>1</b> reincarnation to gain a permanent <b>×1e100</b> Inf-speed boost.`, `infSpeed`],
         [E(2), `Reach <b>2</b> reincarnations to gain a permanent <b>×1e200</b> Quantum-speed boost.`, `quSpeed`],
-        [E(3), `Reach <b>3</b> reincarnations to gain a permanent <b>^2</b> mass gain boost.`, `massGain`],
+        [E(3), `Reach <b>3</b> reincarnations to gain a permanent <b>^100</b> mass gain boost.`, `massGain`],
     ],
     can() {
         return hasInfUpgrade(16) && player.inf.points.gte(this.req)
@@ -25,13 +25,13 @@ const REINCARNATION = {
     },
     getQUSpeedMult() {
         let x = E(1)
-        if (this.reached(1)) x = x.mul(1e200)
-        if (this.reached(2)) x = x.mul(1e200)
+        if (this.reached(1)) x = x.mul(1e300)
+        if (this.reached(2)) x = x.pow(10)
         return x
     },
     getMassGainMult() {
         let x = E(1)
-        if (this.reached(2)) x = x.pow(2)
+        if (this.reached(2)) x = x.pow(100)
         return x
     },
     updateTemp() {
@@ -47,7 +47,7 @@ const REINCARNATION = {
         tmp.reinc.massGainMult = this.getMassGainMult()
     },
     setupHTML() {
-        if (tmp.el && tmp.el.reinc_milestones_table) tmp.el.reinc_milestones_table.setHTML('')
+        // Preserve the existing Reincarnation page HTML instead of wiping the milestones panel.
     },
     updateHTML() {
         if (!tmp.el || !tmp.el.reinc_milestones_table || !tmp.el.reinc_count) return
@@ -67,6 +67,10 @@ const REINCARNATION = {
     },
     doReset() {
         if (!player.reinc) player.reinc = getReincSave()
+
+        let oldTab = tmp.tab
+        let oldStab8 = tmp.stab && tmp.stab[8] !== undefined ? tmp.stab[8] : 4
+        let infUpg = player.inf && Array.isArray(player.inf.upg) ? player.inf.upg.slice() : []
 
         let g = this.gain()
         player.reinc.points = player.reinc.points.add(g)
@@ -97,6 +101,10 @@ const REINCARNATION = {
         player.qu = getQUSave()
         player.dark = getDarkSave()
         player.inf = getInfSave()
+        player.inf.upg = infUpg
+
+        tmp.tab = oldTab
+        tmp.stab[8] = oldStab8
 
         return true
     },
