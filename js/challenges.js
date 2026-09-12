@@ -650,7 +650,7 @@ const CHALS = {
         reward: `After completing this challenge, the gain of reincarnation points is doubled.<br><span class="yellow">In this challenge, every Reincarnation milestone multiplier is raised to the 10th power.</span>`,
         max: E(1),
         inc: E('1e10'),
-        pow: E(3.5),
+        pow: E(2),
         start: E('ee100'),
         effect(x) {
             let ret = E(1)
