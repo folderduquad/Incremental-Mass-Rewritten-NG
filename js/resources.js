@@ -128,7 +128,7 @@ const RESOURCES_DIS = {
         resetBtn() { INF.goInf() },
     },
     reinc: {
-        unl: ()=>true,
+        unl: ()=>hasInfUpgrade(17),
         icon: "prestige_green",
         class: "cyan",
 

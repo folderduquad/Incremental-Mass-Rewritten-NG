@@ -1,7 +1,7 @@
 const REINCARNATION = {
     req: E('1e308'),
     can() {
-        return player.inf.points.gte(this.req)
+        return hasInfUpgrade(16) && player.inf.points.gte(this.req)
     },
     gain() {
         if (!this.can()) return E(0)
