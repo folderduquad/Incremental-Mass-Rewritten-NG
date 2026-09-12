@@ -127,6 +127,15 @@ const RESOURCES_DIS = {
 
         resetBtn() { INF.goInf() },
     },
+    reinc: {
+        unl: ()=>player.reinc.reached || REINCARNATION.can(),
+        icon: "prestige_green",
+        class: "cyan",
+
+        desc: (gs)=>player.reinc.count.format(0)+"<br>(+"+REINCARNATION.gain().format(0)+")",
+
+        resetBtn() { REINCARNATION.go() },
+    },
 
     /*
     mass: {
