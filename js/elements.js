@@ -476,7 +476,7 @@ function updateBlackHoleHTML() {
 }
 
 function updateOptionsHTML() {
-	if (tmp.stab[9] == 0) {
+	if (tmp.stab[10] == 0) {
 		for (let x = 0; x < CONFIRMS.length; x++) {
 			let unl = 
 			CONFIRMS[x] == "sn"
@@ -488,7 +488,7 @@ function updateOptionsHTML() {
 			:CONFIRMS[x] == "inf"
 			?tmp.inf_unl
 			:player[CONFIRMS[x]].unl
-	
+			
 			tmp.el["confirm_div_"+x].setDisplay(unl)
 			tmp.el["confirm_btn_"+x].setTxt(player.confirms[CONFIRMS[x]] ? "ON":"OFF")
 		}
@@ -499,8 +499,7 @@ function updateOptionsHTML() {
 		tmp.el.mass_dis.setTxt(["Default",'Always show g','Always show mlt','Important units only'][player.options.massDis])
 	
 		tmp.el.omega_badge.setDisplay(localStorage.getItem("imr_secret_badge1") == "1")
-	} else if (tmp.stab[9] == 1) {
-		updateResourcesHiderHTML()
+	} else if (tmp.stab[10] == 1) {
 	}
 }
 
@@ -596,7 +595,7 @@ function updateHTML() {
 				updateExoticAtomsHTML()
 			}
 		}
-		else if (tmp.tab == 9) {
+		else if (tmp.tab == 10) {
 			updateOptionsHTML()
 		}
 	}
