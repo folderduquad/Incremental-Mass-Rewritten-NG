@@ -75,38 +75,46 @@ const REINCARNATION = {
 
         let oldTab = tmp.tab
         let oldStab8 = tmp.stab && tmp.stab[8] !== undefined ? tmp.stab[8] : 4
-        let infUpg = player.inf && Array.isArray(player.inf.upg) ? player.inf.upg.slice() : []
+
+        let oldReinc = player.reinc
+        let oldQu = player.qu || getQUSave()
+        let oldDark = player.dark || getDarkSave()
+        let oldInf = player.inf || getInfSave()
 
         let g = this.gain()
-        player.reinc.points = player.reinc.points.add(g)
-        player.reinc.count = player.reinc.count.add(1)
-        player.reinc.total = player.reinc.total.add(1)
-        player.reinc.reached = true
+        let newReinc = getReincSave()
+        newReinc.count = oldReinc.count.add(1)
+        newReinc.total = oldReinc.total.add(1)
+        newReinc.reached = true
+        newReinc.points = oldReinc.points.add(g)
 
-        player.mass = E(0)
+        let newPlayer = getPlayerData()
+        newPlayer.reinc = newReinc
 
-        player.ranks.rank = E(0)
-        player.ranks.tier = E(0)
-        player.ranks.tetr = E(0)
-        player.ranks.pent = E(0)
-        player.ranks.hex = E(0)
-        player.ranks.beyond = E(0)
+        let oldQC = oldQu.qc
+        let oldDarkRun = oldDark.run
+        let oldQuPrimTheorems = oldQu.prim.theorems
+        let oldQuEn = oldQu.en
+        let oldInfTheoremSystems = {
+            core: oldInf.core,
+            inv: oldInf.inv,
+            pre_theorem: oldInf.pre_theorem,
+            fragment: oldInf.fragment,
+            pt_choosed: oldInf.pt_choosed,
+            theorem: oldInf.theorem,
+        }
 
-        for (let i = 0; i < PRESTIGES.names.length; i++) player.prestiges[i] = E(0)
-
-        player.rp.points = E(0)
-        player.bh.mass = E(0)
-        player.bh.dm = E(0)
-        player.atom.points = E(0)
-        player.atom.quarks = E(0)
-        player.atom.atomic = E(0)
-        player.atom.particles = [E(0), E(0), E(0)]
-        player.atom.powers = [E(0), E(0), E(0)]
-
-        player.qu = getQUSave()
-        player.dark = getDarkSave()
-        player.inf = getInfSave()
-        player.inf.upg = infUpg
+        player = newPlayer
+        player.qu.qc = oldQC
+        player.dark.run = oldDarkRun
+        player.qu.prim.theorems = oldQuPrimTheorems
+        player.qu.en = oldQuEn
+        player.inf.core = oldInfTheoremSystems.core
+        player.inf.inv = oldInfTheoremSystems.inv
+        player.inf.pre_theorem = oldInfTheoremSystems.pre_theorem
+        player.inf.fragment = oldInfTheoremSystems.fragment
+        player.inf.pt_choosed = oldInfTheoremSystems.pt_choosed
+        player.inf.theorem = oldInfTheoremSystems.theorem
 
         tmp.tab = oldTab
         tmp.stab[8] = oldStab8

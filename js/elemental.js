@@ -73,21 +73,21 @@ const ELEMENTS = {
         null,
         {
             desc: `Quark gain formula is better.`,
-            cost: E(5e8),
+            cost: E(5000000),
         },
         {
             desc: `Hardened Challenge scaling is 25% weaker.`,
-            cost: E(2.5e12),
+            cost: E(1e10),
         },
         {
             desc: `Electron Powers boost Atomic Powers gain.`,
-            cost: E(1e15),
+            cost: E(1e12),
             effect() {
                 let x
                 if (hasPrestige(0,867)) {
-                    x = player.atom?player.atom.powers[2].add(1).log10().add(1).log10().add(1).pow(1.5):E(1)
+                    x = player.atom?player.atom.powers[2].add(1).log10().add(1).log10().add(1).pow(1.8):E(1)
                 } else {
-                    x = player.atom?player.atom.powers[2].add(1).root(2):E(1)
+                    x = player.atom?player.atom.powers[2].add(1).root(1.5):E(1)
                     if (x.gte('e1e4')) x = expMult(x.div('e1e4'),0.9).mul('e1e4')
                     x = overflow(x,'ee100',0.25).min('ee101')
                 }
@@ -98,7 +98,7 @@ const ELEMENTS = {
         },
         {
             desc: `Stronger's power is stronger based on Proton Powers.`,
-            cost: E(2.5e16),
+            cost: E(1e15),
             effect() {
                 let x = player.atom?player.atom.powers[0].max(1).log10().pow(0.8).div(50).add(1):E(1)
                 return overflow(x.softcap(1e45,0.1,0),'e60000',0.5).min('ee6')
@@ -107,11 +107,11 @@ const ELEMENTS = {
         },
         {
             desc: `The 7th challenge's effect is twice as effective.`,
-            cost: E(1e18),
+            cost: E(1e16),
         },
         {
             desc: `Gain 1% more quarks for each challenge completion.`,
-            cost: E(5e18),
+            cost: E(1e17),
             effect() {
                 let x
                 if (hasElement(276)) {
@@ -132,7 +132,7 @@ const ELEMENTS = {
         },
         {
             desc: `Carbon's effect is now multiplied by the number of elements bought.`,
-            cost: E(1e20),
+            cost: E(1e18),
             effect() {
                 let x = E(player.atom.elements.length+1)
                 if (hasElement(11) && !hasElement(87)) x = x.pow(2)
@@ -142,27 +142,27 @@ const ELEMENTS = {
         },
         {
             desc: `C2's reward's softcap is 75% weaker.`,
-            cost: E(1e21),
+            cost: E(1e19),
         },
         {
             desc: `Tetr's requirement is 15% weaker.`,
-            cost: E(6.5e21),
+            cost: E(1e20),
         },
         {
             desc: `3rd & 4th challenges' scalings are weaker.`,
-            cost: E(1e24),
+            cost: E(1e23),
         },
         {
             desc: `Nitrogen's multiplier is squared.`,
-            cost: E(1e27),
+            cost: E(1e25),
         },
         {
             desc: `Power's gain from each particle formula is better.`,
-            cost: E(1e29),
+            cost: E(1e27),
         },
         {
             desc: `For every c7 completion, increase c5 and c6 cap by 2.`,
-            cost: E(2.5e30),
+            cost: E(1e28),
             effect() {
                 let x = player.chal.comps[7].mul(2)
                 if (hasElement(79)) x = x.mul(tmp.qu.chroma_eff[2])
@@ -172,15 +172,15 @@ const ELEMENTS = {
         },
         {
             desc: `Passively gain 5% of the quarks you would get from resetting each second.`,
-            cost: E(1e33),
+            cost: E(1e30),
         },
         {
             desc: `Super BH Condenser & Cosmic Ray scale 20% weaker.`,
-            cost: E(1e34),
+            cost: E(1e32),
         },
         {
             desc: `Silicon's effect is +2% better for each element bought.`,
-            cost: E(5e38),
+            cost: E(1e35),
             effect() {
                 let x = player.atom.elements.length*0.02
                 return Number(x)
@@ -189,13 +189,13 @@ const ELEMENTS = {
         },
         {
             desc: `Raise Atom gain by 1.1.`,
-            cost: E(1e40),
+            cost: E(1e37),
         },
         {
             desc: `You can now automatically buy Cosmic Rays. Cosmic Ray raises tickspeed effect at an extremely reduced rate.`,
-            cost: E(1e44),
+            cost: E(1e40),
             effect() {
-                let x = overflow(hasElement(129) ? player.build.cosmic_ray.amt.pow(0.5).mul(0.02).add(1) : player.build.cosmic_ray.amt.pow(0.35).mul(0.01).add(1),1000,0.5)
+                let x = overflow(hasElement(129) ? player.build.cosmic_ray.amt.pow(0.55).mul(0.02).add(1) : player.build.cosmic_ray.amt.pow(0.35).mul(0.01).add(1),1000,0.5)
                 if (hasElement(18,1)) x = x.pow(muElemEff(18))
                 return x
             },
@@ -203,11 +203,11 @@ const ELEMENTS = {
         },
         {
             desc: `2nd Neutron's effect is better.`,
-            cost: E(1e50),
+            cost: E(1e45),
         },
         {
             desc: `Increase C7 cap by 50.`,
-            cost: E(1e53),
+            cost: E(1e50),
         },
         {
             desc: `Unlock Mass Dilation.`,
@@ -230,7 +230,7 @@ const ELEMENTS = {
             desc: `Passively gain 100% of the atoms you would get from resetting each second. Atomic Power boost Relativistic particles gain at a reduced rate.`,
             cost: E(1e75),
             effect() {
-                let x = hasPrestige(0,40) ? player.atom.atomic.max(1).log10().add(1).log10().add(1).root(2) : player.atom.atomic.max(1).log10().add(1).pow(0.4)
+                let x = hasPrestige(0,40) ? player.atom.atomic.max(1).log10().add(1).log10().add(1).root(1.8) : player.atom.atomic.max(1).log10().add(1).pow(0.4)
                 return x
             },
             effDesc(x) { return hasPrestige(0,40) ? "^"+format(x) : format(x)+"x" },
@@ -268,7 +268,7 @@ const ELEMENTS = {
             desc: `Dilated mass boosts Relativistic particles gain.`,
             cost: E(1e130),
             effect() {
-                let x = player.md.mass.add(1).pow(0.0125)
+                let x = player.md.mass.add(1).pow(0.013)
                 return overflow(x.softcap('ee27',0.95,2),"ee110",0.25)
             },
             effDesc(x) { return format(x)+"x"+x.softcapHTML('ee27') },
@@ -328,7 +328,7 @@ const ELEMENTS = {
         },
         {
             desc: `Collapsed star boosts dilated mass gain.`,
-            cost: E(1e303),
+            cost: E(1e300),
             effect() {
                 let x = player.stars.points.add(1).pow(0.5)
                 let y = hasPrestige(0,190)?player.stars.points.add(1).log10().add(1).log10().add(1):E(1)
@@ -338,7 +338,7 @@ const ELEMENTS = {
         },
         {
             desc: `Add 50 more C7 maximum completions.`,
-            cost: E('e315'),
+            cost: E('e310'),
         },
         {
             desc: `Collapsed stars boost quark gain.`,
@@ -427,15 +427,15 @@ const ELEMENTS = {
         },
         {
             desc: `Hyper/Ultra BH Condenser & Cosmic Ray scale 25% weaker.`,
-            cost: E('e1.6e4'),
+            cost: E('e1e4'),
         },
         {
             desc: `Add 200 more C8 maximum completions.`,
-            cost: E('e2.2e4'),
+            cost: E('e2e4'),
         },
         {
             desc: `Tickspeed power boosts base of Star Booster at a reduced rate.`,
-            cost: E('e3.6e4'),
+            cost: E('e3e4'),
             effect() {
                 let x = BUILDINGS.eff('tickspeed','power').max(1).log10().div(10).max(1)
                 if (hasElement(66)) x = x.pow(2)
@@ -445,7 +445,7 @@ const ELEMENTS = {
         },
         {
             desc: `Ultra Rank & Tickspeed scale weaker based on Tier.`,
-            cost: E('e5.7e4'),
+            cost: E('e5e4'),
             effect() {
                 let x = E(0.975).pow(player.ranks.tier.pow(0.5))
                 return x
@@ -454,19 +454,19 @@ const ELEMENTS = {
         },
         {
             desc: `The power from the mass of the BH formula is increased to 0.45.`,
-            cost: E('e6.6e4'),
+            cost: E('e6e4'),
         },
         {
             desc: `Add 100 more C7 maximum completions.`,
-            cost: E('e7.7e4'),
+            cost: E('e7e4'),
         },
         {
             desc: `Multiply Particle Powers gain by ^0.5 of its Particle's amount after softcap.`,
-            cost: E('e1.5e5'),
+            cost: E('e1e5'),
         },
         {
             desc: `Ultra rank scaling starts 3 later for every supernova.`,
-            cost: E('e2.5e5'),
+            cost: E('e2e5'),
             effect() {
                 let x = player.supernova.times.mul(3)
                 return x
@@ -487,11 +487,11 @@ const ELEMENTS = {
         },
         {
             desc: `Lanthanum's effect is twice as strong.`,
-            cost: E('e1.1e6'),
+            cost: E('e1e6'),
         },
         {
             desc: `Collapsed stars boost quarks gain.`,
-            cost: E('e1.7e6'),
+            cost: E('e1.5e6'),
             effect() {
                 let x
                 x = hasElement(236) ? Decimal.pow(1.1,player.stars.points.add(1).log10().add(1).log10()) : overflow(player.stars.points.add(1).softcap('e3e15',0.85,2),'ee100',0.5)
@@ -766,35 +766,29 @@ const ELEMENTS = {
             cost: E("e1.7e17"),
         },
         {
-            dark: true,
             desc: `Pre-Quantum global speed affects dark shadow gain at a logarithmic reduced rate.`,
-            cost: E("500"),
+            cost: E("0"),
             effect() {
                 let s = tmp.preQUGlobalSpeed||E(1)
-                let x = hasPrestige(0,110) ? expMult(s,0.4) : s.max(1).log10().add(1)
+                let x = hasPrestige(0,110) ? expMult(s,0.4) : s.max(1).log10().add(1).pow(1.1)
                 return x
             },
             effDesc(x) { return "x"+format(x) },
         },{
-            dark: true,
             desc: `Insane & Impossible Challenges scale 50% weaker.`,
-            cost: E("5000"),
+            cost: E("0"),
         },{
-            dark: true,
             desc: `You can buy Cerium-58 in big rip.`,
-            cost: E("25000"),
+            cost: E("0"),
         },{
-            dark: true,
             desc: `You can now automatically complete Challenges 9-11. Keep Challenge 12 completions on Big Rip or start QC.`,
-            cost: E("1e6"),
+            cost: E("0"),
         },{
-            br: true,
             desc: `You can now automatically buy break dilation upgrades. They no longer spent relativistic mass.`,
             cost: E("ee19"),
         },{
-            dark: true,
             desc: `Keep quantum tree on darkness.`,
-            cost: E("1e7"),
+            cost: E("0"),
         },{
             desc: `7th challenge’s effect gives more C9-12 completions at 10% rate.`,
             cost: E("e9e24"),
@@ -806,17 +800,14 @@ const ELEMENTS = {
             },
             effDesc(x) { return "+"+format(x,0) },
         },{
-            dark: true,
             desc: `You can buy Tungsten-74 in Big Rip.`,
-            cost: E("1e8"),
+            cost: E("0"),
         },{
-            dark: true,
             desc: `Start with break dilation unlocked. Relativistic energy gain is increased by 10%.`,
-            cost: E("1e9"),
+            cost: E("0"),
         },{
-            dark: true,
             desc: `You can buy atom upgrades 13-15 outside Big Rip.`,
-            cost: E("1e11"),
+            cost: E("0"),
         },{
             br: true,
             desc: `Argon-18 is overpowered, it can affect BHC & Cosmic Ray powers.`,
@@ -826,9 +817,8 @@ const ELEMENTS = {
             desc: `Entropic Scaling & Radiation work in Big Rip.`,
             cost: E("e3e20"),
         },{
-            dark: true,
             desc: `You can now automatically complete Challenge 12.`,
-            cost: E("e12"),
+            cost: E("0"),
         },{
             dark: true,
             desc: `Unlock the 13th Challenge, Automate Big Rip upgrades.`,
@@ -1115,7 +1105,7 @@ const ELEMENTS = {
         },{
             dark: true,
             desc: `Unlock The Matters.`,
-            cost: E(1e250),
+            cost: E(1e222),
         },{
             br: true,
             desc: `Dark matter boosts abyssal blots gain. Ultra mass upgrades start ^1.5 later.`,
@@ -1139,7 +1129,7 @@ const ELEMENTS = {
         },{
             dark: true,
             desc: `Each Matter’s gain is increased by 10% for every OoM^2 of Dark Matter. Unlock more main upgrades.`,
-            cost: E(1e303),
+            cost: E(1e300),
             effect() {
                 let x = Decimal.pow(1.1,player.bh.dm.add(1).log10().add(1).log10())
                 return x
@@ -1200,7 +1190,7 @@ const ELEMENTS = {
         },{
             dark: true,
             desc: `1st and 3rd Photon & Gluon upgrades provide an exponential boost. Keep big rip upgrades on darkness.`,
-            cost: E('e605'),
+            cost: E('e600'),
         },{
             desc: `Overpower boosts accelerator power at a reduced rate.`,
             cost: E("e4.2e101"),
@@ -1242,7 +1232,7 @@ const ELEMENTS = {
         },{
             dark: true,
             desc: `Stronger overflow starts later based on FSS.`,
-            cost: E('e710'),
+            cost: E('e700'),
             effect() {
                 let x = player.dark.matters.final.pow(.8).add(2).pow(player.dark.matters.final)
                 
@@ -1264,7 +1254,7 @@ const ELEMENTS = {
             cost: E("1e1.6e117"),
         },{
             dark: true,
-            desc: `[Bottom]’s effect is now better, and is uncapped. Additionally, the Fourth Photon upgrade now provides an exponential boost.`,
+            desc: `[Bottom]’s effect is now better, and is uncapped. Additionally, the Fourth Photon upgrade now provides an exponential boost.(Don't forget Prestige!))`,
             cost: E('e1024'),
         },{
             desc: `Entropic Multiplier is overpowered.`,
@@ -1308,7 +1298,7 @@ const ELEMENTS = {
         },{
             inf: true,
             desc: `Infinity theorem increases parallel extruder’s power. Muon-Catalyzed Fusion no longer resets.`,
-            cost: E('1e14'),
+            cost: E('1e10'),
             effect() {
                 let x = player.inf.theorem.div(20)
                 return x
@@ -1327,7 +1317,7 @@ const ELEMENTS = {
         },{
             c16: true,
             desc: `Matter exponent boosts matters gain outside C16 (changed during C16).`,
-            cost: E('e1e25'),
+            cost: E('e1e24'),
             effect() {
                 let x = tmp.matters.exponent.add(1).log10().div(20)
                 if (tmp.c16active) x = x.mul(5)
@@ -1348,7 +1338,7 @@ const ELEMENTS = {
         },{
             c16: true,
             desc: `Mass of black hole boosts mass overflow^1-2 starting.`,
-            cost: E('e1e26'),
+            cost: E('e1e25'),
             effect() {
                 let x = player.bh.mass.add(10).log10().root(20)
                 if (hasBeyondRank(6,12)) x = x.pow(3)
@@ -1358,7 +1348,7 @@ const ELEMENTS = {
         },{
             inf: true,
             desc: `Passively generate 100% of corrupted shards gained by best mass of black hole in C16.`,
-            cost: E('1.25e19'),
+            cost: E('1e19'),
         },{
             desc: `Super Parallel Extruder starts +25 later.`,
             cost: E('ee505'),
@@ -1376,7 +1366,7 @@ const ELEMENTS = {
         },{
             c16: true,
             desc: `[ct5] is slightly stronger.`,
-            cost: E('e5e34'),
+            cost: E('ee33'),
         },{
             dark: true,
             desc: `Abyssal blot’s eighth reward is even stronger.`,
