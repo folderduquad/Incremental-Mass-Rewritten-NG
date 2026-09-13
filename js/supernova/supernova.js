@@ -92,6 +92,7 @@ const SUPERNOVA = {
         if (hasElement(274)) x = x.mul(elemEffect(274))
         if (hasUpgrade('br',22)) x = x.mul(tmp.prim.eff[7])
         x = x.mul(theoremEff('time',5))
+        x = x.mul(REINCARNATION.getSupernovaGainMult())
 
         return x
     },

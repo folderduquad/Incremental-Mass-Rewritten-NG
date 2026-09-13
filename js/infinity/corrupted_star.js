@@ -88,7 +88,7 @@ function updateCSTemp() {
 
     tmp.cs_reduce_power = GPEffect(4,1)
 
-    tmp.cs_speed = s
+    tmp.cs_speed = s.mul(REINCARNATION.getCorruptedStarSpeedMult())
 
     tmp.csu_div = E(1)
 

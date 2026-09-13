@@ -1,9 +1,22 @@
+if (typeof Decimal === "undefined" && typeof XMLHttpRequest !== "undefined") {
+    try {
+        let req = new XMLHttpRequest()
+        req.open("GET", "js/break_eternity.js", false)
+        req.send(null)
+        if (req.status === 200 || req.status === 0) eval(req.responseText)
+    } catch (e) {
+        console.warn("Failed to inject break_eternity.js into REINCARNATION preload:", e)
+    }
+}
+
 const REINCARNATION = {
     req: E('1e308'),
     mils: [
-        [E(1), `Reach <b>1</b> reincarnation to gain a permanent <b>×1e100</b> Inf-speed boost.`, `infSpeed`],
-        [E(2), `Reach <b>2</b> reincarnations to gain a permanent <b>×1e200</b> Quantum-speed boost.`, `quSpeed`],
+        [E(1), `Reach <b>1</b> reincarnation to gain a permanent <b>×1e100->1e200->1e600</b> Inf-speed boost.`, `infSpeed`],
+        [E(2), `Reach <b>2</b> reincarnations to gain a permanent <b>×ee100->ee110</b> Quantum-speed boost.`, `quSpeed`],
         [E(3), `Reach <b>3</b> reincarnations to gain a permanent <b>^100</b> mass gain boost.`, `massGain`],
+        [E(4), `Reach <b>4</b> reincarnations to multiply <b>Supernova gain</b> by <b>×1e10</b>.`, `supernovaGain`],
+        [E(5), `Reach <b>5</b> reincarnations to multiply <b>Corrupted Stars growth speed</b> by <b>×1048576</b>.`, `corruptedStarSpeed`],
     ],
     can() {
         return hasInfUpgrade(16) && player.inf.points.gte(this.req)
@@ -28,18 +41,29 @@ const REINCARNATION = {
     },
     getQUSpeedMult() {
         let x = E(1)
-        if (this.reached(1)) x = x.mul(1e300)
-        if (this.reached(2)) x = x.pow(10)
-        if (player.chal && player.chal.active == 20) x = x.pow(10)
+        if (this.reached(1)) x = x.mul('ee100')
+        if (this.reached(2)) x = x.pow(1e10)
+        if (player.chal && player.chal.active == 20) x = x.pow(1e10)
         return x
     },
     getMassGainMult() {
         let x = E(1)
-        if (this.reached(2)) x = x.pow(100)
+        if (this.reached(2)) x = x.pow(1e100)
+        if (player.chal && player.chal.active == 20) x = x.pow(1e100)
+        return x
+    },  
+    getSupernovaGainMult() {
+        let x = E(1)
+        if (this.reached(3)) x = x.mul(E(10).pow(10))
         if (player.chal && player.chal.active == 20) x = x.pow(10)
         return x
     },
-    updateTemp() {
+    getCorruptedStarSpeedMult() {
+        let x = E(1)
+        if (this.reached(4)) x = x.mul(1048576)
+        if (player.chal && player.chal.active == 20) x = x.pow(10)
+        return x
+    },    updateTemp() {
         tmp.reinc = tmp.reinc || {}
         tmp.reinc.count = player.reinc.count
         tmp.reinc.total = player.reinc.total
@@ -50,6 +74,8 @@ const REINCARNATION = {
         tmp.reinc.infSpeedMult = this.getInfSpeedMult()
         tmp.reinc.quSpeedMult = this.getQUSpeedMult()
         tmp.reinc.massGainMult = this.getMassGainMult()
+        tmp.reinc.supernovaGainMult = this.getSupernovaGainMult()
+        tmp.reinc.corruptedStarSpeedMult = this.getCorruptedStarSpeedMult()
     },
     setupHTML() {
         // Preserve the existing Reincarnation page HTML instead of wiping the milestones panel.
