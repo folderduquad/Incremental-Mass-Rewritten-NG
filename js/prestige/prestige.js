@@ -12,7 +12,7 @@ const REINCARNATION = {
         if (!this.can()) return E(0)
         let x = player.inf.points.max(1).log10().div(308).floor()
         x = x.max(1)
-        if (player.chal && player.chal.comps && player.chal.comps[20] && player.chal.comps[20].gte(1)) x = x.mul(2)
+        if (player.chal && player.chal.active == 20 && player.chal.comps && player.chal.comps[20] && player.chal.comps[20].gte(1)) x = x.mul(2)
         return x
     },
     reached(i) {
@@ -23,20 +23,20 @@ const REINCARNATION = {
         if (this.reached(0)) x = x.mul(1e100)
         if (this.reached(1)) x = x.mul(1e200)
         if (this.reached(2)) x = x.pow(2)
-        if (player.chal && player.chal.comps && player.chal.comps[20] && player.chal.comps[20].gte(1)) x = x.pow(10)
+        if (player.chal && player.chal.active == 20) x = x.pow(10)
         return x
     },
     getQUSpeedMult() {
         let x = E(1)
         if (this.reached(1)) x = x.mul(1e300)
         if (this.reached(2)) x = x.pow(10)
-        if (player.chal && player.chal.comps && player.chal.comps[20] && player.chal.comps[20].gte(1)) x = x.pow(10)
+        if (player.chal && player.chal.active == 20) x = x.pow(10)
         return x
     },
     getMassGainMult() {
         let x = E(1)
         if (this.reached(2)) x = x.pow(100)
-        if (player.chal && player.chal.comps && player.chal.comps[20] && player.chal.comps[20].gte(1)) x = x.pow(10)
+        if (player.chal && player.chal.active == 20) x = x.pow(10)
         return x
     },
     updateTemp() {
