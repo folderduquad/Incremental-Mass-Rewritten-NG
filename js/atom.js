@@ -23,11 +23,11 @@ const ATOM = {
     quarkGain() {
         if (tmp.atom.gain.lt(1)) return E(0)
         x = tmp.atom.gain.max(1).log10().pow(1.125).add(1)
-        if (hasElement(1)) x = E(1.275).pow(tmp.atom.gain.max(1).log10())
+        if (hasElement(1)) x = E(1.2525).pow(tmp.atom.gain.max(1).log10().add(1))
         if (player.mainUpg.bh.includes(13)) x = x.mul(10)
         if (player.mainUpg.atom.includes(8)) x = x.mul(tmp.upgs.main?tmp.upgs.main[3][8].effect:E(1))
         if (player.ranks.rank.gte(300)) x = x.mul(RANKS.effect.rank[300]())
-        if (hasElement(42)) x = x.mul(tmp.elements.effect[42]**2)
+        if (hasElement(42)) x = x.mul(tmp.elements.effect[42])
         if (player.md.upgs[6].gte(1)) x = x.mul(tmp.md.upgs[6].eff)
         x = x.mul(tmp.md.upgs[9].eff)
 

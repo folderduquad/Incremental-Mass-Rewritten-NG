@@ -82,10 +82,10 @@ const TABS = {
             { id: "Corrupted Star", unl() { return tmp.CS_unl } },
         ],
         9: [
-            { id: "reincarnation" },
+            { id: "Reincarnation" },
             { id: "Challenge Hider" },
         ],
-        10:[
+        10: [
             { id: "Options" },
             { id: "Resource Hider" },
         ],

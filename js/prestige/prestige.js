@@ -13,10 +13,10 @@ const REINCARNATION = {
     req: E('1e308'),
     mils: [
         [E(1), `Reach <b>1</b> reincarnation to gain a permanent <b>×1e100->1e200->1e600</b> Inf-speed boost.`, `infSpeed`],
-        [E(2), `Reach <b>2</b> reincarnations to gain a permanent <b>×ee100->ee110</b> Quantum-speed boost.`, `quSpeed`],
+        [E(2), `Reach <b>2</b> reincarnations to gain a permanent <b>×ee5->ee10</b> Quantum-speed boost.`, `quSpeed`],
         [E(3), `Reach <b>3</b> reincarnations to gain a permanent <b>^100</b> mass gain boost.`, `massGain`],
-        [E(4), `Reach <b>4</b> reincarnations to multiply <b>Supernova gain</b> by <b>×1e10</b>.`, `supernovaGain`],
-        [E(5), `Reach <b>5</b> reincarnations to multiply <b>Corrupted Stars growth speed</b> by <b>×1048576</b>.`, `corruptedStarSpeed`],
+        [E(4), `Reach <b>4</b> reincarnations to multiply <b>Supernova gain</b> by <b>×1e50</b>.`, `supernovaGain`],
+        [E(5), `Reach <b>5</b> reincarnations to multiply <b>Corrupted Stars growth speed</b> by <b>×2147483648</b>.`, `corruptedStarSpeed`],
     ],
     can() {
         return hasInfUpgrade(16) && player.inf.points.gte(this.req)
@@ -26,6 +26,7 @@ const REINCARNATION = {
         let x = player.inf.points.max(1).log10().div(308).floor()
         x = x.max(1)
         if (player.chal && player.chal.active == 20 && player.chal.comps && player.chal.comps[20] && player.chal.comps[20].gte(1)) x = x.mul(2)
+        if (typeof CHAL_HIDE !== 'undefined') x = x.mul(CHAL_HIDE.getGainMult())
         return x
     },
     reached(i) {
@@ -41,8 +42,8 @@ const REINCARNATION = {
     },
     getQUSpeedMult() {
         let x = E(1)
-        if (this.reached(1)) x = x.mul('ee100')
-        if (this.reached(2)) x = x.pow(1e10)
+        if (this.reached(1)) x = x.mul('ee5')
+        if (this.reached(2)) x = x.pow(1e5)
         if (player.chal && player.chal.active == 20) x = x.pow(1e10)
         return x
     },
@@ -54,13 +55,13 @@ const REINCARNATION = {
     },  
     getSupernovaGainMult() {
         let x = E(1)
-        if (this.reached(3)) x = x.mul(E(10).pow(10))
-        if (player.chal && player.chal.active == 20) x = x.pow(10)
+        if (this.reached(3)) x = x.mul(E(1e50))
+        if (player.chal && player.chal.active == 20) x = x.pow(1e50)
         return x
     },
     getCorruptedStarSpeedMult() {
         let x = E(1)
-        if (this.reached(4)) x = x.mul(1048576)
+        if (this.reached(4)) x = x.mul(2147483648)
         if (player.chal && player.chal.active == 20) x = x.pow(10)
         return x
     },    updateTemp() {
@@ -84,6 +85,11 @@ const REINCARNATION = {
         if (!tmp.el || !tmp.el.reinc_milestones_table || !tmp.el.reinc_count) return
 
         tmp.el.reinc_count.setHTML(player.reinc.count.format(0))
+
+        if (tmp.tab == 9 && tmp.stab && tmp.stab[9] == 1 && typeof CHAL_HIDE !== 'undefined') {
+            CHAL_HIDE.updateHTML()
+            return
+        }
 
         let h = ''
         for (let i = 0; i < this.mils.length; i++) {
@@ -113,6 +119,7 @@ const REINCARNATION = {
         newReinc.total = oldReinc.total.add(1)
         newReinc.reached = true
         newReinc.points = oldReinc.points.add(g)
+        newReinc.chalHide = oldReinc.chalHide ? oldReinc.chalHide.slice() : []
 
         let newPlayer = getPlayerData()
         newPlayer.reinc = newReinc
@@ -158,5 +165,6 @@ function getReincSave() {
         total: E(0),
         reached: false,
         points: E(0),
+        chalHide: [],
     }
 }

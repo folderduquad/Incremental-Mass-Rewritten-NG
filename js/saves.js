@@ -189,6 +189,7 @@ function getPlayerData() {
             total: E(0),
             reached: false,
             points: E(0),
+            chalHide: [],
         },
         auto_mainUpg: {},
         mainUpg: {},
