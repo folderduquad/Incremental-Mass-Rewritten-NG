@@ -30,7 +30,7 @@ const REINCARNATION = {
         return x
     },
     reached(i) {
-        return player.reinc.points.gte(this.mils[i][0]) && player.reinc.count.gte(1)
+        return player.reinc.count.gte(this.mils[i][0]) && player.reinc.count.gte(1)
     },
     getInfSpeedMult() {
         let x = E(1)
