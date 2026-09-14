@@ -18,10 +18,13 @@ const CHAL_HIDE = {
     toggle(x) {
         if (!player.reinc) player.reinc = getReincSave()
         if (!player.reinc.chalHide) player.reinc.chalHide = []
+        if (player.chal && player.chal.active == x) return
         let arr = this.getRemoved()
         let idx = arr.indexOf(x)
         if (idx >= 0) arr.splice(idx, 1)
         else arr.push(x)
+        if (tmp && tmp.chal) updateChalTemp()
+        if (tmp && tmp.el && tmp.el.reinc_chal_hide_panel) this.updateHTML()
     },
     updateHTML() {
         if (!tmp.el || !tmp.el.reinc_chal_hide_panel) return
@@ -37,7 +40,8 @@ const CHAL_HIDE = {
             let meta = CHALS[x]
             let title = meta && meta.title ? meta.title : `Challenge ${x}`
             let stopped = this.hasRemoved(x)
-            h += `<button class="btn" style="margin:3px;${stopped ? 'border-color: #5f5; color: #9f9;' : ''}" onclick="CHAL_HIDE.toggle(${x}); REINCARNATION.updateHTML();">
+            let locked = player.chal && player.chal.active == x
+            h += `<button class="btn" style="margin:3px;${stopped ? 'border-color: #5f5; color: #9f9;' : ''}" ${locked ? 'disabled' : ''} onclick="CHAL_HIDE.toggle(${x}); REINCARNATION.updateHTML();">
                     <span>${stopped ? 'Restore' : 'Remove'}</span> ${x}: ${title}
                 </button>`
         }

@@ -17,9 +17,10 @@ function updateChalHTML() {
         for (let x = 1; x <= CHALS.cols; x++) {
             let chal = CHALS[x]
             let unl = chal.unl ? chal.unl() : true
-            tmp.el["chal_div_"+x].setDisplay(unl)
+            let hidden = typeof CHAL_HIDE !== 'undefined' && CHAL_HIDE.hasRemoved(x)
+            tmp.el["chal_div_"+x].setDisplay(unl && !hidden)
             tmp.el["chal_btn_"+x].setClasses({img_chal: true, ch: CHALS.inChal(x), chal_comp: player.chal.comps[x].gte(tmp.chal.max[x])})
-            if (unl) {
+            if (unl && !hidden) {
                 tmp.el["chal_comp_"+x].setTxt(format(player.chal.comps[x],0)+(tmp.chal.max[x].gte(EINF)?"":" / "+format(tmp.chal.max[x],0)))
             }
         }
@@ -69,7 +70,9 @@ function updateChalTemp() {
         tmp.chal.bulk[x] = data.bulk
         let q = x<=8?s:hasElement(174)&&x<=12?s.root(5):hasTree('ct5')&&x<=v?w:1
         if (x == 9) q = Decimal.min(q,'e150')
-        tmp.chal.eff[x] = CHALS[x].effect(FERMIONS.onActive("05")?E(0):player.chal.comps[x].mul(q))
+        let effInput = FERMIONS.onActive("05") ? E(0) : player.chal.comps[x].mul(q)
+        let hasHidden = typeof CHAL_HIDE !== 'undefined' && CHAL_HIDE.hasRemoved(x)
+        tmp.chal.eff[x] = hasHidden ? CHALS[x].effect(E(0)) : CHALS[x].effect(effInput)
     }
     tmp.chal.format = player.chal.active != 0 ? CHALS.getFormat() : format
     tmp.chal.gain = player.chal.active != 0 ? tmp.chal.bulk[player.chal.active].min(tmp.chal.max[player.chal.active]).sub(player.chal.comps[player.chal.active]).max(0).floor() : E(0)
@@ -78,13 +81,17 @@ function updateChalTemp() {
 
 const CHALS = {
     choose(x) {
+        if (typeof CHAL_HIDE !== 'undefined' && CHAL_HIDE.hasRemoved(x)) return
         if (player.chal.choosed == x) {
             this.exit()
             this.enter()
         }
         player.chal.choosed = x
     },
-    inChal(x) { return player.chal.active == x || (player.chal.active == 15 && x <= 12) || (player.chal.active == 20 && x <= 19) },
+    inChal(x) {
+        if (typeof CHAL_HIDE !== 'undefined' && CHAL_HIDE.hasRemoved(x)) return false
+        return player.chal.active == x || (player.chal.active == 15 && x <= 12) || (player.chal.active == 20 && x <= 19)
+    },
     reset(x, chal_reset=true) {
         if (x < 5) FORMS.bh.doReset()
         else if (x < 9) ATOM.doReset(chal_reset)
@@ -109,6 +116,7 @@ const CHALS = {
         }
     },
     enter(ch=player.chal.choosed) {
+        if (typeof CHAL_HIDE !== 'undefined' && CHAL_HIDE.hasRemoved(ch)) return
         if (player.chal.active == 0) {
             if (ch == 16) {
                 player.dark.c16.first = true
