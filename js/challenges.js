@@ -655,8 +655,8 @@ const CHALS = {
         unl() { return hasElement(290) },
         title: "The Reality III",
         desc: "You are trapped in C1-19 and dark run with 1500 all glyphs. Theorems in the Core don't work. This challenge resets main upgrades.",
-        reward: `After completing this challenge, the gain of reincarnation points is doubled.<br><span class="yellow">In this challenge, every Reincarnation milestone multiplier is raised to the 10th power.
-        and unlock the mirror power.z</span>`,
+        reward: `After completing this challenge, the gain of reincarnation points is doubled.<br><span class="yellow">In this challenge, every Reincarnation milestone multiplier is raised to the 10th power,
+        and unlock Mirror Energy (based on your C20 mass).z</span>`,
         max: E(100),
         inc: E(1e5),
         pow: E(2),
