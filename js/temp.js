@@ -237,6 +237,7 @@ function resetTemp() {
         },
 
         massFP: E(1),
+        mirror: {},
 
         build: {},
     }
@@ -462,5 +463,6 @@ function updateTemp() {
     updateMassTemp()
 
     tmp.preInfGlobalSpeed = FORMS.getPreInfGlobalSpeed()
+    updateMirrorTemp()
     tmp.preQUGlobalSpeed = FORMS.getPreQUGlobalSpeed()
 }

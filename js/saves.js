@@ -134,6 +134,15 @@ function calc(dt) {
         calcQuantum(dt)
         calcDark(inf_gs)
         calcInf(dt)
+        calcStars(du_gs)
+        calcSupernova(dt)
+        calcQuantum(dt)
+        calcDark(inf_gs)
+        calcInf(dt)
+        // Mirror Energy passive generation
+        if (MIRROR.unl() && player.mirror.upgs[6] && player.mirror.upgs[6].gte(1)) {
+            player.mirror.points = player.mirror.points.add(tmp.mirror.upgs[6].eff.mul(inf_gs))
+        }
 
         BUILDINGS.tick()
 
@@ -325,6 +334,7 @@ function getPlayerData() {
     s.qu = getQUSave()
     s.dark = getDarkSave()
     s.inf = getInfSave()
+    s.mirror = getMirrorSave()
     return s
 }
 
@@ -346,6 +356,7 @@ function loadPlayer(load) {
     player.reset_msg = ""
     player.main_upg_msg = [0,0]
     player.chal.choosed = 0
+    if (!player.mirror) player.mirror = getMirrorSave()
     if (player.dark.c16.first && player.dark.c16.totalS.eq(0) && player.dark.c16.shard.gt(0)) player.dark.c16.totalS = player.dark.c16.shard
     for (i = 0; i < 2; i++) for (let x = 0; x < FERMIONS.types[i].length; x++) {
         let f = FERMIONS.types[i][x]

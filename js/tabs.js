@@ -84,6 +84,7 @@ const TABS = {
         9: [
             { id: "Reincarnation" },
             { id: "Challenge Hider" },
+            { id: "Mirror Energy", unl() { return MIRROR.unl() } },
         ],
         10: [
             { id: "Options" },

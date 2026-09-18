@@ -154,6 +154,7 @@ function setupHTML() {
 	setupQuantumHTML()
 	setupDarkHTML()
 	setupInfHTML()
+	setupMirrorHTML()
 
 	/*
 	function setupTestHTML() {
@@ -586,6 +587,16 @@ function updateHTML() {
 		else if (tmp.tab == 3) {
 			updateChalHTML()
 		}
+		else if (tmp.tab == 9) {
+			if (tmp.stab[9] == 0) {
+				REINCARNATION.updateHTML()
+			} else if (tmp.stab[9] == 1 && typeof CHAL_HIDE !== 'undefined') {
+				CHAL_HIDE.updateHTML()
+			}
+			if (tmp.stab[9] == 2) {
+				updateMirrorHTML()
+			}
+		}
 		else if (tmp.tab == 4) {
 			if (tmp.stab[4] == 0) updateAtomHTML()
 			else if (tmp.stab[4] == 1) updateElementsHTML()
@@ -593,6 +604,17 @@ function updateHTML() {
 			else if (tmp.stab[4] == 3) updateBDHTML()
 			else if (tmp.stab[4] == 4) {
 				updateExoticAtomsHTML()
+			}
+		}
+		else if (tmp.tab == 9) {
+			if (tmp.stab[9] == 0) {
+				if (typeof REINCARNATION !== 'undefined') REINCARNATION.updateHTML()
+			}
+			else if (tmp.stab[9] == 1) {
+				if (typeof CHAL_HIDE !== 'undefined') CHAL_HIDE.updateHTML()
+			}
+			else if (tmp.stab[9] == 2) {
+				updateMirrorHTML()
 			}
 		}
 		else if (tmp.tab == 10) {

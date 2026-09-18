@@ -1435,6 +1435,38 @@ h4 {
 	box-shadow: 0 0 10px #6ff5ff;
 }
 
+.mirror {
+    border-color: #b07fff;
+    background-color: #1a0a2a;
+    box-shadow: 0 0 8px #b07fff44;
+}
+
+.mirror:not(.locked):hover {
+    border-color: #d0aaff;
+    background-color: #2a1040;
+    box-shadow: 0 0 12px #b07fff88;
+}
+
+.mirror_frag {
+    border-color: #ff7fbf;
+    background-color: #2a0a1a;
+    box-shadow: 0 0 8px #ff7fbf44;
+}
+
+.mirror_frag:not(.locked):hover {
+    border-color: #ffaad4;
+    background-color: #40102a;
+    box-shadow: 0 0 12px #ff7fbf88;
+}
+
+#mirror_points, #mirror_frag {
+    color: #d0aaff;
+}
+
+#mirror_effect {
+    color: #b07fff;
+}
+
 @keyframes gal_spin-1 {
 	0% {
 		background-position: 0px 0px;

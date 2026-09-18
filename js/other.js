@@ -215,6 +215,11 @@ const QUOTES = [
     <img class='quote' src='images/quotes/12.png'><br>
     Your omnipotence ascends as you surpass Infinity.
     `,
+    `
+    <h2>Chapter 13: The Mirror</h2><br>
+    <img class='quote' src='images/quotes/13.png'><br>
+    You gaze into the mirror and see infinity reflected back. The Reality III has granted you a new power!
+    `,
 ]
 
 function addQuote(i, debug=false) {

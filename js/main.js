@@ -47,6 +47,7 @@ const FORMS = {
     massGain() {
         let x = E(1)
         x = x.mul(REINCARNATION.getMassGainMult())
+        x = x.mul(tmp.mirror ? tmp.mirror.effect : E(1))
         x = x.add(BUILDINGS.eff('mass_1'))
         if (player.ranks.rank.gte(6)) x = x.mul(RANKS.effect.rank[6]())
         if (player.ranks.rank.gte(13)) x = x.mul(3)

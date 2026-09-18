@@ -147,6 +147,10 @@ const CONFIRMS_FUNCTION = {
 
         addQuote(11)
     },
+    mirror() {
+    MIRROR.doReset()
+    addQuote(13)
+    },
     t_switch() {
         
     },
