@@ -101,7 +101,7 @@ const CHALS = {
         else INF.doReset()
     },
     exit(auto=false) {
-        if (!player.chal.active == 0) {
+        if (player.chal.active != 0) {
             if (player.chal.active == 16 && !auto) {
                 player.dark.c16.shard = player.dark.c16.shard.add(tmp.c16.shardGain)
                 player.dark.c16.totalS = player.dark.c16.totalS.add(tmp.c16.shardGain)
