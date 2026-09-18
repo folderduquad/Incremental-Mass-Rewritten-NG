@@ -594,7 +594,7 @@ function updateHTML() {
 				CHAL_HIDE.updateHTML()
 			}
 			if (tmp.stab[9] == 2) {
-				updateMirrorHTML()
+				MIRROR.updateHTML()
 			}
 		}
 		else if (tmp.tab == 4) {
@@ -604,17 +604,6 @@ function updateHTML() {
 			else if (tmp.stab[4] == 3) updateBDHTML()
 			else if (tmp.stab[4] == 4) {
 				updateExoticAtomsHTML()
-			}
-		}
-		else if (tmp.tab == 9) {
-			if (tmp.stab[9] == 0) {
-				if (typeof REINCARNATION !== 'undefined') REINCARNATION.updateHTML()
-			}
-			else if (tmp.stab[9] == 1) {
-				if (typeof CHAL_HIDE !== 'undefined') CHAL_HIDE.updateHTML()
-			}
-			else if (tmp.stab[9] == 2) {
-				updateMirrorHTML()
 			}
 		}
 		else if (tmp.tab == 10) {
