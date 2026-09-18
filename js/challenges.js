@@ -642,7 +642,7 @@ const CHALS = {
         `},
         reward: `Generate more supernovas by completions.<br><span class="yellow">On 10th completion, unlock sixth row of infinity upgrades.</span>`,
         max: E(100),
-        inc: E('1e10'),
+        inc: E(1e10),
         pow: E(3),
         start: E('ee5555'),
         effect(x) {
@@ -655,9 +655,10 @@ const CHALS = {
         unl() { return hasElement(290) },
         title: "The Reality III",
         desc: "You are trapped in C1-19 and dark run with 1500 all glyphs. Theorems in the Core don't work. This challenge resets main upgrades.",
-        reward: `After completing this challenge, the gain of reincarnation points is doubled.<br><span class="yellow">In this challenge, every Reincarnation milestone multiplier is raised to the 10th power.</span>`,
-        max: E(1),
-        inc: E('1e10'),
+        reward: `After completing this challenge, the gain of reincarnation points is doubled.<br><span class="yellow">In this challenge, every Reincarnation milestone multiplier is raised to the 10th power.
+        and unlock the mirror power.z</span>`,
+        max: E(100),
+        inc: E(1e5),
         pow: E(2),
         start: E('ee100'),
         effect(x) {
