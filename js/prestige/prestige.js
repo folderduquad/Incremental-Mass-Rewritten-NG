@@ -16,7 +16,7 @@ const REINCARNATION = {
         [E(2), `Reach <b>2</b> reincarnations to gain a permanent <b>×ee5->ee10</b> Quantum-speed boost.`, `quSpeed`],
         [E(3), `Reach <b>3</b> reincarnations to gain a permanent <b>^100</b> mass gain boost.`, `massGain`],
         [E(4), `Reach <b>4</b> reincarnations to multiply <b>Supernova gain</b> by <b>×1e50</b>.`, `supernovaGain`],
-        [E(5), `Reach <b>5</b> reincarnations to multiply <b>Corrupted Stars growth speed</b> by <b>×2147483648</b>.`, `corruptedStarSpeed`],
+        [E(5), `Reach <b>5</b> reincarnations to multiply <b>Corrupted Stars growth speed</b> by <b>×1e20</b>.`, `corruptedStarSpeed`],
     ],
     can() {
         return hasInfUpgrade(16) && player.inf.points.gte(this.req)
@@ -55,13 +55,13 @@ const REINCARNATION = {
     },  
     getSupernovaGainMult() {
         let x = E(1)
-        if (this.reached(3)) x = x.mul(E(1e50))
-        if (player.chal && player.chal.active == 20) x = x.pow(1e50)
+        if (this.reached(3)) x = x.mul(1e50)
+        if (player.chal && player.chal.active == 20) x = x.pow(10)
         return x
     },
     getCorruptedStarSpeedMult() {
         let x = E(1)
-        if (this.reached(4)) x = x.mul(2147483648)
+        if (this.reached(4)) x = x.mul(1e20)
         if (player.chal && player.chal.active == 20) x = x.pow(10)
         return x
     },    updateTemp() {

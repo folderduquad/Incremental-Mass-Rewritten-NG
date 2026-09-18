@@ -1,6 +1,6 @@
 // mirror.js - 镜子能量系统（通过 C20 质量数量获得）
 const MIRROR = {
-    unl() { return player.chal.comps[20].gte(1) },
+    unl() { hasInfUpgrade(20) },
     
     // 获取当前 C20 的质量数量
     c20Mass() {
