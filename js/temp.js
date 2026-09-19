@@ -461,8 +461,7 @@ function updateTemp() {
     updateTickspeedTemp()
     updateRanksTemp()
     updateMassTemp()
-
-    tmp.preInfGlobalSpeed = FORMS.getPreInfGlobalSpeed()
     updateMirrorTemp()
+    tmp.preInfGlobalSpeed = FORMS.getPreInfGlobalSpeed()
     tmp.preQUGlobalSpeed = FORMS.getPreQUGlobalSpeed()
 }
