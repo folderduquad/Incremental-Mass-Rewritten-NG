@@ -84,7 +84,7 @@ const TABS = {
         9: [
             { id: "Reincarnation" },
             { id: "Challenge Hider" },
-            { id: "Mirror Energy", unl() { return MIRROR.unl() } },
+            { id: "Mirror Energy", unl () { return player.reincarnation.mirror.unl }},
         ],
         10: [
             { id: "Options" },
