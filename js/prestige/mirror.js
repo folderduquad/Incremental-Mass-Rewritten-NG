@@ -1,8 +1,10 @@
 // mirror.js - 镜子能量系统（通过 C20 质量数量获得）
 const MIRROR = {
     unl() { 
-    try { return player.chal.comps[20].gte(1) } 
-    catch(e) { return false }
+    try { 
+        if (!player.chal || !player.chal.comps || !player.chal.comps[20]) return false
+        return player.chal.comps[20].gte(1) 
+    } catch(e) { return false }
 },
     
     // 获取当前 C20 的质量数量
