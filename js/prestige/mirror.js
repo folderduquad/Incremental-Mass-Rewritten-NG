@@ -22,7 +22,8 @@ const MIRROR = {
         
         // 核心公式：基于 C20 质量的 slog
         let x = c20Mass.max(1).slog(10)
-        x = x.pow(1.5).sub(1).max(0)
+        x = x.pow(3).sub(1).max(0)
+        x=x.mul(200)
         
         // 升级加成
         let ue = tmp.mirror.upgEff || []
@@ -47,6 +48,7 @@ const MIRROR = {
         if (ue[1]) x = x.mul(ue[1])
         let fe = tmp.mirror.fragEff || {}
         if (fe.fragGain) x = x.mul(fe.fragGain)
+        x=x.mul(100)
         return x.floor()
     },
     
