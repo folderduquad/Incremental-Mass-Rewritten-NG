@@ -136,6 +136,14 @@ const RESOURCES_DIS = {
 
         resetBtn() { REINCARNATION.go() },
     },
+    mirror: {
+    unl: () => typeof MIRROR !== 'undefined' && MIRROR.unl(),
+    icon: "mass",
+    desc: (gs) => {
+        if (!tmp.mirror || !tmp.mirror.unl || !tmp.mirror.gain) return "(loading...)"
+        return format(player.mirror.points) + "<br>" + formatGain(player.mirror.points, tmp.mirror.gain.mul(gs))
+    },
+},
 
     /*
     mass: {
