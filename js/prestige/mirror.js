@@ -249,62 +249,71 @@ function getMirrorSave() {
 }
 
 function updateMirrorTemp() {
-    if (!tmp.mirror) tmp.mirror = {}
-    if (!tmp.mirror.upgs) {
-        tmp.mirror.upgs = []
-        for (let x = 0; x < MIRROR.upgs.ids.length; x++) tmp.mirror.upgs[x] = {}
-    }
-    if (!tmp.mirror.fragUpgs) {
-        tmp.mirror.fragUpgs = []
-        for (let x = 0; x < MIRROR.fragUpgs.ids.length; x++) tmp.mirror.fragUpgs[x] = {}
-    }
-    
-    if (!player.mirror) player.mirror = getMirrorSave()
-    
-    tmp.mirror.unl = MIRROR.unl()
-    if (!tmp.mirror.unl) {
-        tmp.mirror.effect = E(1)
-        tmp.mirror.upgEff = []
-        tmp.mirror.fragEff = { mirrorGain: E(1), fragGain: E(1), global: E(1), forge: E(1) }
-        return
-    }
-    
-    // 1) 先算升级效果（因为 gain 依赖 upgEff）
-    let upgEff = []
-    for (let x = 0; x < MIRROR.upgs.ids.length; x++) {
-        let u = MIRROR.upgs.ids[x]
-        tmp.mirror.upgs[x].cost = u.cost(player.mirror.upgs[x])
-        tmp.mirror.upgs[x].bulk = u.bulk().min(u.maxLvl || EINF)
-        tmp.mirror.upgs[x].can = player.mirror.points.gte(tmp.mirror.upgs[x].cost) && player.mirror.upgs[x].lt(u.maxLvl || EINF)
-        if (u.effect) {
-            tmp.mirror.upgs[x].eff = u.effect(player.mirror.upgs[x])
-            upgEff[x] = tmp.mirror.upgs[x].eff
+    try {
+        if (!tmp.mirror) tmp.mirror = {}
+        if (!player.mirror) player.mirror = getMirrorSave()
+
+        // 补全旧存档缺失的数组
+        if (!player.mirror.upgs) player.mirror.upgs = new Array(8).fill(E(0))
+        if (!player.mirror.fragUpgs) player.mirror.fragUpgs = new Array(5).fill(E(0))
+        if (!tmp.mirror.upgs) tmp.mirror.upgs = []
+        if (!tmp.mirror.fragUpgs) tmp.mirror.fragUpgs = []
+
+        tmp.mirror.unl = MIRROR.unl()
+        if (!tmp.mirror.unl) {
+            tmp.mirror.effect = E(1)
+            tmp.mirror.upgEff = []
+            tmp.mirror.fragEff = { mirrorGain: E(1), fragGain: E(1), global: E(1), forge: E(1) }
+            return
         }
-    }
-    tmp.mirror.upgEff = upgEff
-    
-    // 2) 碎片效果
-    let fragEff = { mirrorGain: E(1), fragGain: E(1), global: E(1), forge: E(1) }
-    if (player.mirror.fragUpgs[0].gte(1)) fragEff.fragGain = tmp.mirror.fragUpgs[0].eff
-    if (player.mirror.fragUpgs[1].gte(1)) fragEff.global = tmp.mirror.fragUpgs[1].eff
-    tmp.mirror.fragEff = fragEff
-    
-    // 3) 再算 gain（依赖 upgEff 和 fragEff）
-    tmp.mirror.gain = MIRROR.gain()
-    tmp.mirror.fragGain = MIRROR.fragGain()
-    tmp.mirror.effect = MIRROR.effect()
-    tmp.mirror.canReset = MIRROR.canReset()
-    
-    tmp.mirror.c20Mass = MIRROR.c20Mass()
-    tmp.mirror.bestC20Mass = player.mirror.bestC20Mass
-    
-    // 4) 碎片升级
-    for (let x = 0; x < MIRROR.fragUpgs.ids.length; x++) {
-        let u = MIRROR.fragUpgs.ids[x]
-        tmp.mirror.fragUpgs[x].cost = u.cost(player.mirror.fragUpgs[x])
-        tmp.mirror.fragUpgs[x].bulk = u.bulk().min(u.maxLvl || EINF)
-        tmp.mirror.fragUpgs[x].can = player.mirror.fragments.gte(tmp.mirror.fragUpgs[x].cost) && player.mirror.fragUpgs[x].lt(u.maxLvl || EINF)
-        if (u.effect) tmp.mirror.fragUpgs[x].eff = u.effect(player.mirror.fragUpgs[x])
+
+        // 1) 先算升级效果（因为 gain 依赖 upgEff）
+        let upgEff = []
+        for (let x = 0; x < MIRROR.upgs.ids.length; x++) {
+            let u = MIRROR.upgs.ids[x]
+            if (!tmp.mirror.upgs[x]) tmp.mirror.upgs[x] = {}
+            let lvl = player.mirror.upgs[x] || E(0)
+            tmp.mirror.upgs[x].cost = u.cost(lvl)
+            tmp.mirror.upgs[x].bulk = u.bulk().min(u.maxLvl || EINF)
+            tmp.mirror.upgs[x].can = player.mirror.points.gte(tmp.mirror.upgs[x].cost) && lvl.lt(u.maxLvl || EINF)
+            if (u.effect) {
+                tmp.mirror.upgs[x].eff = u.effect(lvl)
+                upgEff[x] = tmp.mirror.upgs[x].eff
+            }
+        }
+        tmp.mirror.upgEff = upgEff
+
+        // 2) 碎片升级 + 碎片效果（合并，只循环一次）
+        let fragEff = { mirrorGain: E(1), fragGain: E(1), global: E(1), forge: E(1) }
+        for (let x = 0; x < MIRROR.fragUpgs.ids.length; x++) {
+            let u = MIRROR.fragUpgs.ids[x]
+            if (!tmp.mirror.fragUpgs[x]) tmp.mirror.fragUpgs[x] = {}
+            let lvl = player.mirror.fragUpgs[x] || E(0)
+            tmp.mirror.fragUpgs[x].cost = u.cost(lvl)
+            tmp.mirror.fragUpgs[x].bulk = u.bulk().min(u.maxLvl || EINF)
+            tmp.mirror.fragUpgs[x].can = player.mirror.fragments.gte(tmp.mirror.fragUpgs[x].cost) && lvl.lt(u.maxLvl || EINF)
+            if (u.effect) tmp.mirror.fragUpgs[x].eff = u.effect(lvl)
+        }
+        if (player.mirror.fragUpgs[0].gte(1)) fragEff.fragGain = tmp.mirror.fragUpgs[0].eff
+        if (player.mirror.fragUpgs[1].gte(1)) fragEff.global = tmp.mirror.fragUpgs[1].eff
+        tmp.mirror.fragEff = fragEff
+
+        // 3) 再算 gain（依赖 upgEff 和 fragEff）
+        tmp.mirror.gain = MIRROR.gain()
+        tmp.mirror.fragGain = MIRROR.fragGain()
+        tmp.mirror.effect = MIRROR.effect()
+        tmp.mirror.canReset = MIRROR.canReset()
+
+        tmp.mirror.c20Mass = MIRROR.c20Mass()
+        tmp.mirror.bestC20Mass = player.mirror.bestC20Mass
+    } catch(e) {
+        console.error("updateMirrorTemp error:", e)
+        if (!tmp.mirror) tmp.mirror = {}
+        tmp.mirror.unl = false
+        tmp.mirror.gain = E(0)
+        tmp.mirror.fragGain = E(0)
+        tmp.mirror.effect = E(1)
+        tmp.mirror.canReset = false
     }
 }
 
