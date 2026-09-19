@@ -171,7 +171,17 @@ function calc(dt) {
         createPopup(POPUP_GROUPS.fermions.html,'fermions')
     }
 }
-
+function getMirrorSave() {
+    return {
+        points: E(0),
+        total: E(0),
+        fragments: E(0),
+        totalFrag: E(0),
+        bestC20Mass: E(0),
+        upgs: new Array(8).fill(E(0)),
+        fragUpgs: new Array(5).fill(E(0)),
+    }
+}
 function getPlayerData() {
     let s = {
         mass: E(0),
