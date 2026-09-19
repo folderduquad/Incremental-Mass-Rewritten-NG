@@ -359,6 +359,15 @@ function setupMirrorHTML() {
 }
 
 function updateMirrorHTML() {
+    try {
+        if (!tmp.mirror || !tmp.mirror.unl) {
+            if (tmp.el && tmp.el.mirror_tab) tmp.el.mirror_tab.setDisplay(false)
+            return
+        }
+        // ... 原代码 ...
+    } catch(e) {
+        console.error("updateMirrorHTML error:", e)
+    }
     if (!tmp.mirror || !tmp.mirror.unl) {
         if (tmp.el && tmp.el.mirror_tab) tmp.el.mirror_tab.setDisplay(false)
         return
