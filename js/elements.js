@@ -594,7 +594,7 @@ function updateHTML() {
 				CHAL_HIDE.updateHTML()
 			}
 			if (tmp.stab[9] == 2) {
-				MIRROR.updateHTML()
+				updateMirrorHTML()
 			}
 		}
 		else if (tmp.tab == 4) {
