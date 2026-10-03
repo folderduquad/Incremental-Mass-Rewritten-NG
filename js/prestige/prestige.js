@@ -42,13 +42,13 @@ const REINCARNATION = {
     },
     getQUSpeedMult() {
         let x = E(1)
-        if (this.reached(1)) x = x.mul('ee5')
-        if (this.reached(2)) x = x.pow(1e5)
-        if (player.chal && player.chal.active == 20) x = x.pow(1e10)
+        if (this.reached(1)) x = x.mul(1e100)
+        if (this.reached(2)) x = x.pow(9900)
+        if (player.chal && player.chal.active == 20) x = x.pow(10000)
         return x
     },
     getMassGainMult() {
-        let x = E(1)
+        let x = E(10)
         if (this.reached(2)) x = x.pow(1e100)
         if (player.chal && player.chal.active == 20) x = x.pow(1e100)
         return x
